@@ -1,0 +1,17 @@
+{
+  "id": "/Vakilstay/",
+  "name": "VakilStay — Stay & Explore Shiraz",
+  "short_name": "VakilStay",
+  "description": "A friendly travel guide for your stay in Shiraz, Iran.",
+  "lang": "en",
+  "start_url": "/Vakilstay/",
+  "scope": "/Vakilstay/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#14100f",
+  "theme_color": "#14100f",
+  "icons": [
+    { "src": "images/Logo/Logo.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "images/Logo/Logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
