@@ -1,88 +1,28 @@
-# VakilStay — Gust Page Pro v3
+# VakilStay — Stay & Explore Shiraz
 
-نسخه‌ی بازطراحی‌شده‌ی `mehrdadmb2/gust-page` با کارت‌های اختصاصی جاذبه‌ها، راهنمای سفر و اتصال آمار بازدید به پروژه‌ی GitHub Page Insights.
+A responsive, visitor-friendly static travel and accommodation guide for Shiraz, Iran. Built for GitHub Pages at **https://bita-prsp.github.io/Vakilstay/**.
 
-## فایل‌ها
+## Included
+- Existing visual identity: the header, loader, PWA icons, and app metadata use `images/Logo/logo.png` from the repository. Keep the existing `images/Logo/logo.png` file when replacing files.
+- Weather forecast for Shiraz (current conditions and up to seven days) powered by the free Open-Meteo forecast API. A fallback state appears if the API/network is unavailable.
+- Installable PWA setup (`manifest.webmanifest`, `sw.js`, Apple touch icon metadata); the browser decides when installation is available. On iPhone, use Safari → Share → Add to Home Screen.
+- Loading screen inspired by ancient Persian/Mesopotamian motifs, with a restrained cuneiform-inspired decorative line.
+- Share links use the canonical GitHub Pages address and Open Graph/Twitter metadata for link previews.
+- Existing accommodation, place cards, filters, saved items, trip planning, maps and gallery retained.
+- Small footer analytics strip for 30-day page views and lifetime totals, with no fake placeholder counts.
 
-- `index.html` — ساختار اصلی، متادیتا، آیکن‌های SVG، پیکربندی عمومی Insights و صفحات/مودال‌ها
-- `style.css` — تم تاریک و روشن، layout واکنش‌گرا، کارت‌های هر جاذبه با پالت مستقل، glow و واکنش به حرکت موس
-- `script.js` — فیلترها، جست‌وجو، علاقه‌مندی‌ها، برنامه سفر، مسیر چندمقصدی، مودال جزئیات، گالری و آمار بازدید
-- `assets/hero-shiraz.webp` — بک‌گراند عریض جدید برای Hero
-- `assets/locations/*.webp` — تصویر مستقل برای هر کارت جاذبه
-- `assets/rooms/*.webp` — تصاویر نمایشی برای کارت‌های واحد
-- `assets/brand-mark.svg` — لوگوی SVG پشتیبان، اگر `Logo.png` در ریپو نباشد یا بارگذاری نشود
+## Deploy to GitHub Pages
+1. Download and extract the ZIP.
+2. Upload/replace `index.html`, `style.css`, `script.js`, `README.md`, `manifest.webmanifest`, `sw.js`, and the included `assets/` directory in the root of `Bita-prsp/Vakilstay`.
+3. **Keep** the repository's existing `images/Logo/logo.png`, `guide.pdf`, and any real accommodation photos that are not included in this bundle. The original logo path is intentionally referenced as `images/Logo/logo.png`.
+4. In repository Settings → Pages, make sure the intended branch/root is published.
+5. Wait for the deployment and hard-refresh the site. PWA install prompts require HTTPS and browser support.
 
-## اتصال به GitHub Page Insights
+## GitHub Page Insights configuration
+The UI requests the platform ID `vakilstay` from the existing GitHub Page Insights Worker. The ID must exist in that service and the worker must allow public read access/CORS from `https://bita-prsp.github.io`. If this fork has not yet been registered in the Insights dashboard/API, register `vakilstay` there first. The frontend cannot create a platform or infer lifetime totals if the API does not expose them. When unavailable, the UI shows a dash rather than invented statistics.
 
-این نسخه طبق راهنمای رسمی پروژه از Browser SDK و API همان Worker استفاده می‌کند:
-
-```js
-window.PAGE_INSIGHTS_CONFIG = {
-  workerUrl: "https://github-page-insights-worker.game-developer-mb.workers.dev",
-  platformId: "gust-page",
-  platformName: "VakilStay · Shiraz",
-  platformType: "web",
-  environment: "production"
-};
-```
-
-SDK از این آدرس لود می‌شود:
-`https://mehrdadmb2.github.io/github-page-insights/analytics.js`
-
-کارت آمار از این endpoint داده‌های ۳۰ روز اخیر را می‌خواند:
-`GET https://github-page-insights-worker.game-developer-mb.workers.dev/v1/platforms/gust-page?days=30&lite=1`
-
-آمار از API دریافت می‌شود و عدد ثابت یا ساختگی در کد قرار نگرفته است. اگر Worker/API موقتاً پاسخ ندهد یا درخواست از مرورگر مسدود شود، کارت آمار وضعیت «فعلاً در دسترس نیست» را نشان می‌دهد و بقیه‌ی سایت مستقل کار می‌کند. اولین pageview از طریق SDK فرستاده می‌شود؛ پس از اولین ثبت موفق، آمار برای شناسه‌ی `gust-page` قابل مشاهده خواهد بود.
-
-هیچ `GITHUB_TOKEN`، `ADMIN_KEY` یا secret در جاوااسکریپت سمت مرورگر استفاده نشده است.
-
-## قابلیت‌های فعال
-
-- طراحی واکنش‌گرا برای موبایل، تبلت و دسکتاپ
-- پوسته‌ی تاریک/روشن با ذخیره‌ی انتخاب در مرورگر
-- استفاده از فونت‌های سیستمی خوانا؛ بدون فونت نستعلیق برای متن بدنه و بدون وابستگی Google Fonts
-- آیکن‌های SVG داخلی؛ بدون Bootstrap، Font Awesome یا Leaflet
-- Hero با تصویر محلی باکیفیت و fallback برای لوگو
-- ۱۱ کارت لوکیشن؛ هر کارت با تم، رنگ، تصویر، آیکن، شماره و توضیحات مجزا
-- جست‌وجو و فیلتر جاذبه‌ها
-- مودال جزئیات هر لوکیشن و لینک مسیر Google Maps
-- ذخیره‌ی علاقه‌مندی‌ها در `localStorage`
-- برنامه‌ی سفر: افزودن/حذف مکان‌ها، مرتب‌سازی با ترتیب انتخاب، کپی فهرست، بازکردن مسیر چندمقصدی
-- کارت‌های اقامت با فیلتر ظرفیت و لینک‌های رزرو فعلی Jajiga
-- گالری و Lightbox با کنترل صفحه‌کلید
-- افکت سه‌بعدی ملایم با موس؛ روی دستگاه لمسی و با `prefers-reduced-motion` غیرفعال است
-- نوار تماس/رزرو ثابت روی موبایل
-- بخش آمار بازدید در انتهای صفحه
-
-## نکته‌ی مهم درباره تصاویر
-
-تصاویر جدید داخل این پکیج artwork تولیدشده برای طراحی بصری هستند، نه عکس‌های مستند/رسمی از خود ملک یا تضمین‌کننده‌ی جزئیات دقیق هر بنای تاریخی. روی کارت‌های لوکیشن برچسب «تصویر هنری» دیده می‌شود. برای معرفی واقعی اتاق‌ها، پیشنهاد می‌شود فایل‌های `assets/rooms/room-*.webp` را با عکس‌های واقعی و باکیفیت همان واحدها جایگزین کنید.
-
-## لینک‌های حفظ‌شده از ریپازیتوری
-
-- واحد ۱: https://www.jajiga.com/r/3hwx/dr
-- واحد ۲: https://www.jajiga.com/r/3i6c/dr
-- واحد ۳: https://www.jajiga.com/r/3hqd/dr
-- واحد ۴: https://www.jajiga.com/r/3hwz/dr
-- تماس: `09059123832`
-- WhatsApp: https://wa.me/989059123832
-- موقعیت فعلی پروژه: https://maps.app.goo.gl/aM4ZekBX2bC79dep7
-- راهنما: `guide.pdf`
-
-## نصب روی GitHub Pages
-
-1. فایل ZIP را extract کن.
-2. `index.html`، `style.css`، `script.js` و فولدر `assets/` را در ریشه‌ی branch فعال GitHub Pages اضافه یا جایگزین کن.
-3. فایل‌های اصلی `Logo.png`، `cover.jpeg`، `guide.pdf` و `Pic/` فعلی ریپو را پاک نکن. کد جدید برای لوگو fallback محلی دارد و Hero از تصویر جدید داخل `assets/` استفاده می‌کند.
-4. بعد از Commit، سایت را با `Ctrl+F5` بازخوانی کن تا cache قدیمی پاک شود.
-
-این پروژه استاتیک است و `npm install` یا build step ندارد.
-
-## تست سریع بعد از انتشار
-
-- ظرفیت‌های واحدها را تغییر بده و لینک رزرو را باز کن.
-- در لوکیشن‌ها جست‌وجو و فیلتر کن.
-- از یک کارت جزئیات را باز کن، مکان را ذخیره کن و به برنامه‌ی سفر اضافه کن.
-- برنامه‌ی سفر را کپی کن یا مسیر چندمقصدی را باز کن.
-- گالری را با موس، دکمه‌ها و کلیدهای جهت‌نما تست کن.
-- بخش Insights را پس از چند ثانیه بررسی کن؛ در صورت نیاز روی «تلاش دوباره» بزن و داشبورد `github-page-insights` را با شناسه‌ی پلتفرم `gust-page` باز کن.
+## Notes
+- Weather is provided by Open-Meteo; forecasts are estimates and can change.
+- The English toggle translates key navigation and common controls, but the original Persian editorial copy is retained in places. A complete professionally edited English version can be added as a separate translation pass.
+- The accommodation links and contact details remain the existing project values; verify availability and contact details before publishing.
+- Static GitHub Pages cannot send notifications or store user plans across devices. Saved preferences remain in the visitor's browser.
