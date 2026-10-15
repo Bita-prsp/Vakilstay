@@ -420,3 +420,206 @@ button,a,input,select,textarea{min-width:0;touch-action:manipulation}
  body{padding-bottom:0}
 }
 @media(prefers-reduced-motion:reduce){.spot-card,.room-card,.hero-side-image img{transition:none!important}}
+
+/* v7 — mobile hero repair. Keep the desktop composition intact. */
+@media (max-width: 850px) {
+  /* The hero has two flow children (content + footer). They must stack, not shrink side-by-side in the flex parent. */
+  .hero {
+    display: block;
+    min-height: 0;
+    padding-bottom: 30px;
+  }
+  .hero-content {
+    width: min(var(--container), calc(100% - 32px));
+    margin-inline: auto;
+  }
+  .hero-foot {
+    position: relative;
+    inset: auto;
+    width: min(var(--container), calc(100% - 32px));
+    margin: 24px auto 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .hero {
+    display: block;
+    padding-top: max(98px, calc(66px + env(safe-area-inset-top, 0px)));
+    padding-bottom: 26px;
+    background: #14100f;
+    overflow: clip;
+  }
+  /* Do not stretch a landscape background over the entire tall, stacked mobile hero. */
+  .hero-photo,
+  .hero-scrim,
+  .hero-grain {
+    inset: 0 0 auto 0;
+    height: clamp(560px, 82vh, 740px); /* fallback for older Safari */
+    height: clamp(560px, 82svh, 740px);
+    bottom: auto;
+  }
+  .hero-photo { overflow: hidden; }
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 69% center;
+    animation: none;
+    transform: none;
+  }
+  .hero-scrim {
+    background:
+      linear-gradient(90deg, rgba(12,9,9,.42), rgba(12,9,9,.08)),
+      linear-gradient(180deg, rgba(12,9,9,.72) 0%, rgba(15,10,10,.69) 34%, rgba(20,16,15,.89) 68%, #14100f 100%);
+  }
+  html[data-theme=light] .hero-scrim {
+    background:
+      linear-gradient(90deg, rgba(12,9,9,.42), rgba(12,9,9,.08)),
+      linear-gradient(180deg, rgba(12,9,9,.72) 0%, rgba(15,10,10,.69) 34%, rgba(20,16,15,.89) 68%, #14100f 100%);
+  }
+  .hero-grain { opacity: .10; }
+  .hero-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 23px;
+    width: calc(100% - 28px);
+    max-width: 480px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-main,
+  .hero-side { min-width: 0; width: 100%; max-width: none; }
+  .hero-main { padding: 0 1px; }
+  .eyebrow { gap: 7px; font-size: .58rem; line-height: 1.6; }
+  .eyebrow i { width: 15px; }
+  .hero h1 {
+    font-size: clamp(2.35rem, 10.3vw, 3.15rem);
+    line-height: 1.18;
+    letter-spacing: -.045em;
+    margin: 17px 0 13px;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .hero-description {
+    max-width: 43ch;
+    font-size: .78rem;
+    line-height: 1.9;
+    text-wrap: pretty;
+  }
+  .hero-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    min-width: 0;
+    min-height: 54px;
+    padding: 9px 8px;
+    gap: 6px;
+    font-size: .61rem;
+    line-height: 1.45;
+    white-space: normal;
+    text-align: center;
+  }
+  .hero-actions .icon { width: 17px; height: 17px; }
+  .hero-proof { margin-top: 17px; gap: 9px; align-items: center; }
+  .proof-mark { width: 35px; height: 35px; flex: none; border-radius: 11px; }
+  .hero-proof strong { font-size: .64rem; line-height: 1.55; }
+  .hero-proof small { font-size: .53rem; line-height: 1.7; }
+
+  .hero-side {
+    justify-self: stretch;
+    margin: 0;
+    padding: 10px;
+    border-radius: 22px;
+    border-color: rgba(255,238,214,.22);
+    background: linear-gradient(145deg, rgba(26,22,21,.78), rgba(23,20,20,.73));
+    box-shadow: 0 22px 55px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.08);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+  .hero-side-top { gap: 7px; padding: 0 2px 9px; font-size: .49rem; line-height: 1.5; }
+  .overline { letter-spacing: .09em; }
+  .live-label { font-size: .54rem; }
+  .hero-side-image {
+    height: clamp(150px, 43vw, 178px);
+    aspect-ratio: 16 / 9;
+    border-radius: 15px;
+  }
+  .side-image-caption { inset-inline: 12px; bottom: 11px; }
+  .side-image-caption span { font-size: .5rem; }
+  .side-image-caption strong { font-size: 1rem; line-height: 1.5; }
+
+  /* Three compact editorial chips instead of three full-width rows. */
+  .hero-mini-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 8px; }
+  .mini-spot {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    min-height: 65px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 7px;
+    border-radius: 12px;
+  }
+  .mini-icon { width: 25px; height: 25px; border-radius: 8px; font-size: .78rem; }
+  .mini-spot span:nth-child(2) { display: block; width: 100%; min-width: 0; }
+  .mini-spot b { display: block; white-space: nowrap; font-size: .59rem; line-height: 1.4; }
+  .mini-spot small,
+  .mini-spot i { display: none; }
+
+  .hero-weather-card { margin-top: 8px; padding: 10px; border-radius: 15px; }
+  .hero-weather-head { gap: 8px; padding-bottom: 8px; }
+  .hero-clock { gap: 2px; }
+  .weather-label { font-size: .49rem; letter-spacing: .025em; }
+  .hero-clock > strong { font-size: 1.25rem; line-height: 1.25; }
+  .hero-clock > small { font-size: .54rem; line-height: 1.55; overflow-wrap: anywhere; }
+  .holiday-note { max-width: 260px; }
+  .weather-refresh { width: 31px; height: 31px; border-radius: 10px; }
+  .hero-weather-current { grid-template-columns: 34px minmax(0, 1fr) auto; align-items: center; gap: 7px; padding: 9px 0; }
+  .hero-weather-icon { font-size: 1.65rem; }
+  .weather-current-copy .weather-label { font-size: .51rem; }
+  .weather-current-copy > strong { font-size: 1.35rem; line-height: 1.2; }
+  .weather-current-copy > small { max-width: none; font-size: .51rem; line-height: 1.45; white-space: normal; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+  .weather-feels { grid-column: auto; align-self: center; justify-self: end; padding: 0; font-size: .48rem; white-space: nowrap; }
+  .weather-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+  .weather-metrics > span { min-width: 0; display: grid; grid-template-columns: minmax(0,1fr); grid-template-rows: auto auto auto; justify-items: center; text-align: center; gap: 1px; padding: 7px 3px; border-radius: 10px; }
+  .weather-metrics i { grid-row: auto; font-size: .75rem; line-height: 1.3; }
+  .weather-metrics small { font-size: .45rem; line-height: 1.45; overflow-wrap: anywhere; }
+  .weather-metrics b { font-size: .58rem; line-height: 1.45; white-space: nowrap; }
+  .compact-forecast-head { align-items: flex-start; margin: 9px 0 6px; gap: 6px; }
+  .compact-forecast-head > span { font-size: .56rem; line-height: 1.5; }
+  .compact-forecast-head > small { white-space: normal; text-align: end; font-size: .45rem; line-height: 1.5; }
+  .hero-weather-card .forecast-grid { grid-auto-columns: 54px; gap: 5px; padding-bottom: 4px; }
+  .hero-weather-card .forecast-card { padding: 6px 3px; border-radius: 10px; }
+  .hero-weather-card .forecast-day { font-size: .48rem; }
+  .hero-weather-card .forecast-icon { font-size: 1.1rem; margin: 4px 0 2px; }
+  .hero-weather-card .forecast-condition { font-size: .44rem; }
+  .hero-weather-card .forecast-temperatures b { font-size: .66rem; }
+  .hero-weather-card .forecast-temperatures span { font-size: .57rem; }
+  .hero-weather-card .forecast-detail { font-size: .42rem; }
+  .weather-source { margin-top: 3px; font-size: .44rem; }
+  .hero-foot { width: calc(100% - 28px); max-width: 480px; margin: 15px auto 0; }
+}
+
+@media (max-width: 359px) {
+  .hero-content { width: calc(100% - 24px); gap: 19px; }
+  .hero h1 { font-size: 2.25rem; }
+  .hero-description { font-size: .74rem; }
+  .hero-actions { grid-template-columns: minmax(0, 1fr); gap: 7px; }
+  .hero-actions .btn { min-height: 45px; }
+  .hero-side { padding: 8px; }
+  .hero-mini-grid { gap: 4px; }
+  .mini-spot { padding: 7px 5px; }
+  .mini-spot b { font-size: .55rem; }
+  .hero-weather-card { padding: 8px; }
+  .weather-feels { font-size: .44rem; }
+  .weather-metrics small { font-size: .42rem; }
+  .weather-metrics b { font-size: .54rem; }
+  .hero-weather-card .forecast-grid { grid-auto-columns: 51px; }
+}

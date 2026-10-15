@@ -4,12 +4,12 @@ A responsive bilingual travel and accommodation guide for visitors to Shiraz, Ir
 
 **https://bita-prsp.github.io/Vakilstay/**
 
-## What's updated in v6
+## What's updated in v7
 
 - **Real Persian/English UI switching:** switches the document language and direction (`rtl` for Persian, `ltr` for English), translates the main navigation, headings, travel copy, accommodation/place cards, filters, modal text, labels and live weather output, and persists the visitor's choice in their browser.
 - **Weather integrated into the hero glass card:** current temperature and condition, feels-like temperature, humidity, wind, rain probability and a horizontally scrollable seven-day forecast. Weather comes from Open-Meteo; when the network or service is unavailable, an honest error state is shown.
 - **Shiraz-local clock and Solar Hijri date:** displays live time, weekday and Persian-calendar date. Public-holiday information is loaded from Persian-Calendar.com; if that service is unavailable, the UI shows that status rather than inventing a holiday.
-- **Mobile-first responsive layout:** rebuilt responsive overrides for small Android and iPhone widths, including iPhone 11 Pro-class screens. Room cards stack vertically on phones, filters become horizontally scrollable chips, buttons and modal actions fit the viewport, and the fixed contact bar respects iOS safe areas.
+- **Mobile-first responsive layout:** includes a dedicated mobile hero layout. At tablet/mobile widths the hero content and footer are correctly stacked instead of competing as flex siblings; the background image is constrained to the top hero area, actions become responsive columns, editorial chips are compact, and the weather/date card is denser on phones. Room cards, filters, modal actions and the fixed contact bar retain the earlier responsive fixes and iOS safe-area support.
 - **Exact property pin and nearby essentials:** property coordinates are set from the supplied pin. The map has separate clickable markers for Vakil Subway Station and Shahid Beheshti Hospital, plus their calculated straight-line distances from the stay.
 
 ## Confirmed coordinates and distances
@@ -32,7 +32,7 @@ GitHub Pages uses case-sensitive paths: `Logo.png` and `logo.png` are different 
 
 ## Publish the update
 
-1. Download and extract `VakilStay-Bita-Prsp-v6.zip` locally.
+1. Download and extract `VakilStay-Bita-Prsp-v7.zip` locally.
 2. In the `Bita-prsp/Vakilstay` repository, upload/replace `index.html`, `style.css`, `script.js`, `README.md`, `manifest.webmanifest`, and `sw.js` in the repository root, and merge the bundled `assets/` folder with the current one. Keep `images/Logo/Logo.png`, `guide.pdf` and any real room photographs already in your repo.
 3. Commit the changes and wait for GitHub Pages to publish.
 4. Open `https://bita-prsp.github.io/Vakilstay/`. For a hard refresh on desktop use **Ctrl + F5**. If the site was already installed as a PWA, close/reopen it after the new service worker activates.
@@ -46,6 +46,8 @@ GitHub Pages uses case-sensitive paths: `Logo.png` and `logo.png` are different 
 - Page analytics: existing GitHub Page Insights endpoint. The code displays `—` if the endpoint does not return recognized counts; it never fabricates analytics.
 
 ## Mobile check
+
+The v7 mobile-specific repair targets the top hero layout, which was the remaining problem on phones: `.hero` is a flex container on desktop, but its content and footer now stack as normal flow content at tablet/mobile widths. The desktop grid and styling are left unchanged.
 
 After publishing, check the page at around 375 × 812 px (iPhone 11 Pro CSS viewport), 390 × 844 px, and a smaller 320 px viewport. Check both Persian RTL and English LTR, open the interactive map tab, and open a place-detail modal. The map tiles and online weather/calendar endpoints require an internet connection.
 
